@@ -1,7 +1,9 @@
+import { ToastContainer } from 'react-toastify';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import './css_comps/header_nav.css'
+import "react-toastify/dist/ReactToastify.css"
 import NavBar from './comps/navbar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './comps/home';
 import About from './comps/about';
 import Page404 from './comps/page404';
@@ -27,8 +29,8 @@ function App() {
       <footer>
         <Footer></Footer>
       </footer>
+      <ToastContainer />
     </Router>
-
   );
 }
 

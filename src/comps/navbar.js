@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 function NavBar(props) {
   let [showMobileNav, setShowMobileNav] = useState(false);
 
+  useEffect(()=>{
+
+  },[])
 
   return (
     <div className="row align-items-center">
@@ -15,7 +18,9 @@ function NavBar(props) {
         </div>
       </div>
       {/* style -> with condition */}
-      <nav className="col-lg-9 text-end" style={{ display: showMobileNav && "block" }}>
+      <nav onClick={() => {
+        setShowMobileNav(false);
+      }} className="col-lg-9 text-end" style={{ display: showMobileNav && "block" }}>
         <NavLink activeClassName="active" exact={true} to="">Home</NavLink>
         <NavLink activeClassName="active" to="/about">about</NavLink>
         <NavLink activeClassName="active" to="/login">Login</NavLink>
