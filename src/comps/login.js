@@ -1,11 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { API_URL, doApiMethod } from '../services/apiSer';
 
 
 function Login(props) {
-
+  let history = useHistory();
   let { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubForm = async (bodyData) => {
@@ -16,6 +17,7 @@ function Login(props) {
       console.log(data);
       localStorage.setItem('tok', data.token);
       toast.success("Logged In Successfully")
+      history.push("/userInfo");
     } catch (err) {
       console.log(err);
       toast.error("Wrong User/Password");

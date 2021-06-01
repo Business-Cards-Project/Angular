@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 function NavBar(props) {
   let [showMobileNav, setShowMobileNav] = useState(false);
+  let history = useHistory();
 
-  useEffect(()=>{
+  useEffect(() => {
+    console.log("aaa");
+  }, [props.location])
 
-  },[])
+  const logOut = () => {
+    localStorage.removeItem("tok");
+    toast.info("Logged Out");
+    history.push("/login")
+  }
 
   return (
     <div className="row align-items-center">
@@ -23,8 +31,17 @@ function NavBar(props) {
       }} className="col-lg-9 text-end" style={{ display: showMobileNav && "block" }}>
         <NavLink activeClassName="active" exact={true} to="">Home</NavLink>
         <NavLink activeClassName="active" to="/about">about</NavLink>
-        <NavLink activeClassName="active" to="/login">Login</NavLink>
-        <NavLink activeClassName="active" to="/signup">Signup</NavLink>
+        {!localStorage["tok"] ?
+          <React.Fragment>
+            <NavLink activeClassName="active" to="/login">Log in</NavLink>
+            <NavLink activeClassName="active" to="/signup">Sign up</NavLink>
+          </React.Fragment>
+          :
+          <React.Fragment>
+            <NavLink activeClassName="active" to="/userInfo" >User Info</NavLink>
+            <a onClick={logOut} role="button">Log out</a>
+          </React.Fragment>
+        }
       </nav>
     </div>
   )
