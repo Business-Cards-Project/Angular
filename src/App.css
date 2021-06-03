@@ -1,3 +1,7 @@
 .active {
   color: red;
 }
+
+.active-page {
+  background: red;
+}

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { API_URL, doApiMethod } from '../services/apiSer';
+import { updateUserData } from '../services/userSer';
 
 
 function Login(props) {
@@ -16,6 +17,7 @@ function Login(props) {
       let data = await doApiMethod(url, 'POST', bodyData)
       console.log(data);
       localStorage.setItem('tok', data.token);
+      await updateUserData();
       toast.success("Logged In Successfully")
       history.push("/userInfo");
     } catch (err) {

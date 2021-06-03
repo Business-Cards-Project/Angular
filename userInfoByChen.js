@@ -2,32 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { API_URL, doApiMethod } from '../services/apiSer';
 import PageHeader from './common/pageHeader';
 
-function UserInfo(props) {
-
+function UserInfo(props){
   let [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
     doApi();
-  }, [])
+  },[])
 
-  const doApi = async () => {
+  const doApi = async() => {
     let url = API_URL + "/users/userInfo"
-    let data = await doApiMethod(url, "GET");
+    // GET -> בבקשות גט לא מעבירים לפונקציה את הבאדי
+    let data = await doApiMethod(url,"GET");
     console.log(data);
-    // userInfo.dateCreated = new Date(userInfo.createdAt).toDateString();
-    data.dateCreated = data.createdAt.substr(0, data.createdAt.indexOf("T"));
-    setUserInfo(data)
+    data.dateCreated = data.createdAt.substr(0,data.createdAt.indexOf("T"));
+    // data.dateCreated = new Date(userInfo.createdAt).toDateString();
+    setUserInfo(data);
   }
 
-  return (
+  return(
     <div>
-      <PageHeader title="Info about your user:" />
+      <PageHeader title="Info about your user:"/>
       <div>
         <h4 className="h5">Name: {userInfo.name}</h4>
         <h4 className="h5">Email: {userInfo.email}</h4>
         <h4 className="h5">Sign up data: {userInfo.dateCreated}</h4>
       </div>
-    </div>
+    </div> 
   )
 }
 

@@ -11,33 +11,42 @@ import SignUpClient from './comps/signup';
 import Login from './comps/login';
 import Footer from './comps/footer';
 import UserInfo from './comps/userInfo';
-import ProtectedRoute from './comps/protectedRoute';
-import { useEffect } from 'react';
-import { checkUser } from './services/userSer';
+import ProtectedRoute from './comps/common/protectedRoute';
+import { useEffect, useState } from 'react';
+import { updateUserData } from './services/userSer';
+import FavoriteCards from './comps/favoriteCards';
 
 function App() {
 
+  let [user, setUser] = useState(null);
+
   useEffect(() => {
-    checkUser();
+    ifUserLogin();
   }, [])
 
-
+  const ifUserLogin = async () => {
+    let userData = await updateUserData();
+    setUser(userData);
+  }
 
   return (
     <Router>
       <header className="container-fluid shadow-sm">
         <Route path="/" component={NavBar} />
       </header>
-      <main style={{ minHeight: "90vh" }}>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/signup" component={SignUpClient} />
-          <Route exact path="/login" component={Login} />
-          <ProtectedRoute exact path="/userInfo" comp={UserInfo} />
-          <Route path="/" component={Page404} />
-        </Switch>
-      </main>
+      { user &&
+        <main style={{ minHeight: "90vh" }}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/signup" component={SignUpClient} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/favoriteCards" component={FavoriteCards} />
+            <ProtectedRoute exact path="/userInfo" comp={UserInfo} />
+            <Route path="/" component={Page404} />
+          </Switch>
+        </main>
+      }
       <footer>
         <Footer></Footer>
       </footer>

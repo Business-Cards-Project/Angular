@@ -1,7 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css_comps/cards.css';
+import { getUserData, removeFavorite, updateFavorites } from '../services/userSer';
 
 function CardsList(props) {
+
+  let [userData, setUserData] = useState();
+  let [update, forceUpdate] = useState(1);
+
+  useEffect(() => {
+    setUserData(getUserData());
+  }, [])
+
+  const showFavBtn = (item) => {
+    if (!userData.cards.includes(item)) {
+      return (
+        <button onClick={() => {
+          addToFav(item);
+        }} className="btn btn-success">+ fav</button>
+      )
+    } else {
+      return (
+        <button onClick={() => {
+          removeCardFromFavorite(item)
+        }} className="btn btn-warning">- fav</button>
+      )
+    }
+  }
+
+  const addToFav = async (item) => {
+    await updateFavorites(item);
+    forceUpdate(update + 1);
+  }
+
+  const removeCardFromFavorite = async (_bizNumber) => {
+    await removeFavorite(_bizNumber);
+    forceUpdate(update + 1);
+  }
+
   return (
     <div className="row">
       {props.ar.map(item => {
@@ -18,6 +53,12 @@ function CardsList(props) {
                 <hr />
                 <div><strong>Phone:</strong> {item.bizPhone}</div>
                 <div><strong>Address:</strong> {item.bizAddress}</div>
+                <div><strong>Biz Number:</strong> {item.bizNumber}</div>
+                {userData._id
+                  ?
+                  showFavBtn(item.bizNumber)
+                  :
+                  <small className="text text-danger">* log in to add to favorite</small>}
               </article>
             </div>
           </div>

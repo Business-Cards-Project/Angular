@@ -2,6 +2,8 @@ import axios from "axios"
 
 export const API_URL = "http://localhost:3400"
 
+export const PER_PAGE = 5;
+
 export const doApiGet = async (_url) => {
   try {
     let resp = await axios.get(_url);
