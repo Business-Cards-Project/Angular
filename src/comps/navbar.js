@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 function NavBar(props) {
   let [showMobileNav, setShowMobileNav] = useState(false);
