@@ -15,6 +15,9 @@ import ProtectedRoute from './comps/common/protectedRoute';
 import { useEffect, useState } from 'react';
 import { updateUserData } from './services/userSer';
 import FavoriteCards from './comps/favoriteCards';
+import MyCards from './comps/biz/myCards';
+import AddCard from './comps/biz/addCard';
+import EditCard from './comps/biz/editCard';
 
 function App() {
 
@@ -32,7 +35,7 @@ function App() {
   return (
     <Router>
       <header className="container-fluid shadow-sm">
-        <Route path="/" component={NavBar} />
+        {user && <Route path="/" component={NavBar} />}
       </header>
       { user &&
         <main style={{ minHeight: "90vh" }}>
@@ -41,8 +44,11 @@ function App() {
             <Route exact path="/about" component={About} />
             <Route exact path="/signup" component={SignUpClient} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/favoriteCards" component={FavoriteCards} />
-            <ProtectedRoute exact path="/userInfo" comp={UserInfo} />
+            <ProtectedRoute path="/favoriteCards" comp={FavoriteCards} />
+            <ProtectedRoute path="/userInfo" comp={UserInfo} />
+            <ProtectedRoute bizRoute={true} exact path="/myBizCards" comp={MyCards} />
+            <ProtectedRoute bizRoute={true} exact path="/addCard" comp={AddCard} />
+            <ProtectedRoute bizRoute={true} path="/editCard/:id" comp={EditCard} />
             <Route path="/" component={Page404} />
           </Switch>
         </main>
@@ -50,7 +56,7 @@ function App() {
       <footer>
         <Footer></Footer>
       </footer>
-      <ToastContainer />
+      <ToastContainer position='bottom-right' />
     </Router>
   );
 }

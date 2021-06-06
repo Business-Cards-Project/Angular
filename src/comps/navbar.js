@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { updateUserData } from '../services/userSer';
+import { getUserData, updateUserData } from '../services/userSer';
 
 
 function NavBar(props) {
   let [showMobileNav, setShowMobileNav] = useState(false);
+  let [user, setUser] = useState({});
   let history = useHistory();
+
+  useEffect(() => {
+    setUser(getUserData())
+  }, [props.location])
 
   const logOut = () => {
     localStorage.removeItem("tok");
@@ -40,6 +45,7 @@ function NavBar(props) {
           <React.Fragment>
             <NavLink activeClassName="active" to="/userInfo" >User Info</NavLink>
             <NavLink activeClassName="active" to="/favoriteCards" >My Favorites</NavLink>
+            {user?.biz && <NavLink activeClassName="active" to="/myBizCards" >My Cards</NavLink>}
             <a onClick={logOut} role="button">Log out</a>
           </React.Fragment>
         }
