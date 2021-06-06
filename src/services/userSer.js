@@ -47,7 +47,6 @@ export const updateFavorites = async (_bizCardNum) => {
   } catch (err) {
     toast.error("Something gone wrong, Please Try Again")
     throw err;
-
   }
 }
 
@@ -62,6 +61,5 @@ export const removeFavorite = async (_bizNumber) => {
   } catch (err) {
     toast.error("Something gone wrong, Please Try Again")
     throw err;
-
   }
 }

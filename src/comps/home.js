@@ -7,14 +7,14 @@ import Pagenation from './common/pagenation';
 function Home(props) {
 
   let [cards_ar, setCardsAr] = useState([]);
-  let [page, setPage] = useState()
+  let [page, setPage] = useState();
 
   useEffect(() => {
+    console.log(window.location.search);
     const quries = new URLSearchParams(window.location.search);
     page = quries.get("page") ? quries.get("page") - 1 : 0;
     setPage(page);
     let url = API_URL + "/cards?page=" + page;
-    console.log(page);
     doApi(url);
   }, [props.location])
 

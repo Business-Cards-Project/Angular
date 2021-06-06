@@ -23,7 +23,7 @@ function Pagenation(props) {
         {
           [...Array(countPage)].map((item, i) => {
             return (
-              <Link to={props.linkTo + (i + 1)} key={i + 1} className={"btn me-1" + (i == props.page ? ' btn-danger' : ' btn-dark')} > { i + 1}</Link>
+              <Link to={props.linkTo + (i + 1)} key={i + 1} className={"btn me-1" + (i == props.page ? ' btn-danger' : ' btn-dark')} > {i + 1}</Link>
             )
           })
         }

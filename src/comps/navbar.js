@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { updateUserData } from '../services/userSer';
+
+
 function NavBar(props) {
   let [showMobileNav, setShowMobileNav] = useState(false);
   let history = useHistory();
@@ -16,7 +18,7 @@ function NavBar(props) {
   return (
     <div className="row align-items-center">
       <div className="logo col-lg-3 d-flex justify-content-between align-items-center">
-        <h2 className="text-danger"><i class="fa fa-id-card" aria-hidden="true"></i> Your Business App</h2>
+        <h2 className="text-danger"><i className="fa fa-id-card" aria-hidden="true"></i> Your Business App</h2>
         <div className="burger" onClick={() => {
           setShowMobileNav(!showMobileNav);
         }}>
